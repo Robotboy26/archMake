@@ -128,7 +128,11 @@ for index in "${modeIndices[@]}"; do
         # Install some common packages
         pacman -S vim nano git
 
-        exit 0
+        exit
+
+        unmount -R /mnt
+
+        exit
     fi
 done
 
