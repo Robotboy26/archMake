@@ -108,8 +108,6 @@ for index in "${modeIndices[@]}"; do
         umount /mnt/home
         umount /mnt
 
-        reboot
-
         exit 0
     fi
 done
