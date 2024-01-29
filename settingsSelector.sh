@@ -52,20 +52,6 @@ for index in "${modeIndices[@]}"; do
         # set time and date over eth
         timedatectl
 
-        # still manual setup for disk ):
-        # echo "Example disk configuration:"
-        # echo "lsblk # show disks"
-        # echo "Example layout:"
-        # echo "/mnt/boot /dev/efiSystemPartition about 400mb"
-        # echo "[SWAP] /dev/spawPartition about 4GB"
-        # echo "/mnt dev/rootPatition about 32GB"
-        # echo "fdisk <disk you want>"
-
-        # stuff on formating
-        
-        # mount filesystem
-
-
         # Create partitions
         parted $selectedDisk mklabel gpt
         parted $selectedDisk mkpart ESP fat32 1MiB 513MiB       # EFI partition (512MB)
@@ -106,6 +92,11 @@ for index in "${modeIndices[@]}"; do
         echo 'LANG=en_US.UTF-8' | sudo tee /etc/locale.conf
         echo 'KEYMAP=us' | sudo tee /etc/vconsole.conf
 
+        pacman -S grub efibootmgr --noconfirm
+        grub-mkconfig -o /boot/grub/grub.cfg
+        grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
+        grub-install $selectedDisk
+        
         # setup network
         echo "hostname" > /etc/hostname
 
@@ -113,9 +104,11 @@ for index in "${modeIndices[@]}"; do
         # find a way to pass a arg
         passwd
 
+        umount /mnt/boot
+        umount /mnt/home
+        umount /mnt
 
-        
-
+        reboot
 
         exit 0
     fi
