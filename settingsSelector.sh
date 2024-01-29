@@ -86,34 +86,47 @@ for index in "${modeIndices[@]}"; do
         arch-chroot /mnt
         hwclock --systohc
 
-        # set lang and stuff
-        sudo sed -i 's/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
-        sudo locale-gen
-        echo 'LANG=en_US.UTF-8' | sudo tee /etc/locale.conf
-        echo 'KEYMAP=us' | sudo tee /etc/vconsole.conf
-
-        pacman -S grub efibootmgr --noconfirm
-        echo "mkdir /boot/grub"
-        echo "grub-mkconfig -o /boot/grub/grub.cfg"
-        mkdir /boot/grub
-        grub-mkconfig -o /boot/grub/grub.cfg
-        echo "grub-install --target=i386-pc --recheck $selectedDevice"
-		grub-install --target=i386-pc --recheck $selectedDevice
-		echo "grub-install --target=x86_64-efi --efi-directory=/boot --removable --recheck $selectedDevice"
-		grub-install --target=x86_64-efi --efi-directory=/boot --removable --recheck $selectedDevice
-        grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
-        grub-install $selectedDisk
-        
-        # setup network
-        echo "hostname" > /etc/hostname
-
         mkinitcpio -P linux
         # find a way to pass a arg
-        passwd
 
-        umount /mnt/boot
-        umount /mnt/home
-        umount /mnt
+        hostname="m"
+        username="m"
+        password="m"
+
+        # Set timezone
+        ln -sf /usr/share/zoneinfo/Region/City /etc/localtime
+
+        # Set locale
+        echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
+        locale-gen
+        echo "LANG=en_US.UTF-8" > /etc/locale.conf
+
+        # Set hostname
+        echo $hostname > /etc/hostname
+
+        # Set hosts file
+        echo "127.0.0.1    localhost" >> /etc/hosts
+        echo "::1          localhost" >> /etc/hosts
+        echo "127.0.1.1    $hostname.localdomain $hostname" >> /etc/hosts
+
+        # Set root password
+        echo -e "$password\n$password" | passwd root
+
+        # Create user
+        useradd -m -G wheel,users $username
+        echo -e "$password\n$password" | passwd $username
+
+        # Install bootloader
+        pacman -S grub efibootmgr dosfstools os-prober mtools
+        grub-install --target=x86_64-efi --efi-directory=/boot/EFI --bootloader-id=ArchLinux
+        grub-mkconfig -o /boot/grub/grub.cfg
+
+        # Enable required services
+        systemctl enable NetworkManager
+        systemctl enable gdm
+
+        # Install some common packages
+        pacman -S vim nano git
 
         exit 0
     fi
