@@ -93,14 +93,21 @@ for index in "${modeIndices[@]}"; do
         echo 'KEYMAP=us' | sudo tee /etc/vconsole.conf
 
         pacman -S grub efibootmgr --noconfirm
+        echo "mkdir /boot/grub"
+        echo "grub-mkconfig -o /boot/grub/grub.cfg"
+        mkdir /boot/grub
         grub-mkconfig -o /boot/grub/grub.cfg
+        echo "grub-install --target=i386-pc --recheck $selectedDevice"
+		grub-install --target=i386-pc --recheck $selectedDevice
+		echo "grub-install --target=x86_64-efi --efi-directory=/boot --removable --recheck $selectedDevice"
+		grub-install --target=x86_64-efi --efi-directory=/boot --removable --recheck $selectedDevice
         grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
         grub-install $selectedDisk
         
         # setup network
         echo "hostname" > /etc/hostname
 
-        mkinitcpio -P
+        mkinitcpio -P linux
         # find a way to pass a arg
         passwd
 
