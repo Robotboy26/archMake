@@ -45,6 +45,7 @@ if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
     arch-chroot /mnt
 
     # Install bootloader (e.g., GRUB) and necessary packages
+    pacman -Sy
     pacman -S grub efibootmgr dosfstools os-prober mtools
     grub-install --target=x86_64-efi --bootloader-id=arch_grub --recheck
     grub-mkconfig -o /boot/grub/grub.cfg
