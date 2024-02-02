@@ -21,28 +21,10 @@ read -r response
 
 # Check for user confirmation
 if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
-    # Create partitions on the drive using fdisk (you may change the partition layout according to your needs)
-    fdisk "${drive}" <<EOF
-o # Create a new empty partition table
-n # Create a new partition
-p # Primary partition
-1 # Partition number
-   # Default - use default start sector
-+512M # 512MB boot partition
-n # Create a new partition
-p # Primary partition
-2 # Partition number
-   # Default - use default start sector
-   # Default - use remaining available space
-a # Set bootable flag
-2 # Specify partition number
-
-t # Change partition type
-2 # Specify partition number
-1 # EFI System partition type (code 1)
-
-w # Write changes to disk
-EOF
+    # Create GPT partition table and partitions using sgdisk
+    sgdisk --zap-all "$drive" # Delete existing partition table if any
+    sgdisk -n 1:0:+512M -t 1:EF00 -c 1:"EFI System Partition" "$drive" # EFI System Partition
+    sgdisk -n 2:0:0 -t 2:8300 -c 2:"Linux Filesystem" "$drive" # Linux Filesystem
 
     # Format the partitions
     mkfs.fat -F32 "${drive}1" # FAT32 for boot partition
