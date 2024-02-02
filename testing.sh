@@ -35,24 +35,32 @@ if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
     mkdir /mnt/boot
     mount "${drive}1" /mnt/boot
 
-    # Install Arch Linux base system
-    pacstrap /mnt base
+    # Download Arch Linux base system
+    curl -L -o /root/archlinux.tar.gz "<DOWNLOAD_URL>"
+
+    # Extract Arch Linux base system
+    tar -xzf /root/archlinux.tar.gz -C /mnt/
 
     # Generate an fstab file
     genfstab -U /mnt >> /mnt/etc/fstab
 
-    # Change root to the new system
-    arch-chroot /mnt
+    # Mount necessary filesystems in chroot
+    mount -t proc none /mnt/proc
+    mount -t sysfs none /mnt/sys
+    mount -o bind /dev /mnt/dev
+    mount -t devpts none /mnt/dev/pts
 
-    # Install bootloader (e.g., GRUB) and necessary packages
-    pacman -Sy
-    pacman -S grub efibootmgr dosfstools os-prober mtools
-    grub-install --target=x86_64-efi --bootloader-id=arch_grub --recheck
-    grub-mkconfig -o /boot/grub/grub.cfg
+    # Change root to the new system and perform installations
+    chroot /mnt /bin/bash -c "source /root/.bashrc; /bin/bash -c '
+      pacman -Syu --noconfirm grub efibootmgr dosfstools os-prober mtools base-devel linux-headers
+      grub-install --target=x86_64-efi --bootloader-id=arch_grub --recheck "${drive}"
+      grub-mkconfig -o /boot/grub/grub.cfg
+      echo "Please enter a password for the root user:"
+      passwd
+    '"
 
-    # Set a password for the root user
-    echo "Please enter a password for the root user:"
-    passwd
+    # Unmount filesystems from chroot
+    umount -R /mnt/{dev/pts,dev,sys,proc}
 
     echo "Installation complete. You can now reboot the system!"
 else
