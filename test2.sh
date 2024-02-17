@@ -12,9 +12,9 @@ DRIVE="/dev/sd$1"
 echo "Creating partitions on $DRIVE..."
 # Create a simple partition layout (one boot partition and one root partition)
 parted -s $DRIVE mklabel gpt
-parted -s $DRIVE mkpart primary 1MB 513MB
-parted -s $DRIVE set 1 boot on
-parted -s $DRIVE mkpart primary 513MB 100%
+parted -s $DRIVE mkpart primary fat32 1MiB 513MiB
+parted -s $DRIVE set 1 esp on
+parted -s $DRIVE mkpart primary ext4 514MiB 100%
 
 # Format the boot partition with FAT32
 mkfs.fat -F32 ${DRIVE}1
@@ -27,7 +27,7 @@ mount ${DRIVE}2 /mnt
 
 echo "Installing Arch Linux base system..."
 # Install the base system using pacstrap
-pacstrap /mnt base
+pacstrap /mnt base linux linux-firmware
 
 # Generate an fstab file
 genfstab -U /mnt >> /mnt/etc/fstab
@@ -47,10 +47,13 @@ echo "LANG=en_US.UTF-8" > /etc/locale.conf
 
 # Set the hostname
 echo "arch" > /etc/hostname
+echo "127.0.1.1 arch.localdomain arch" >> /etc/hosts
 
 # Install and configure the bootloader (Grub in this case)
-pacman -S grub
-grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=ArchLinux
+pacman -S grub efibootmgr dosfstools os-prober mtools
+mkdir /boot/EFI
+mount ${DRIVE}1 /boot/EFI
+grub-install --target=x86_64-efi --efi-directory=/boot/EFI --bootloader-id=ArchLinux
 grub-mkconfig -o /boot/grub/grub.cfg
 
 EOF
