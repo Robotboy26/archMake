@@ -9,6 +9,10 @@ fi
 # Assign the drive number from the argument
 DRIVE="/dev/sd$1"
 
+echo "Resetting partitions on $DRIVE..."
+# Remove existing partitions on the drive
+wipefs -a $DRIVE
+
 echo "Creating partitions on $DRIVE..."
 # Create a simple partition layout (one boot partition and one root partition)
 parted -s $DRIVE mklabel gpt
