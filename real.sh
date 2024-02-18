@@ -16,9 +16,12 @@ wipefs -a $DRIVE
 echo "Creating partitions on $DRIVE..."
 # Create a simple partition layout (one boot partition and one root partition)
 parted -s $DRIVE mklabel gpt
-parted -s $DRIVE mkpart primary fat32 1MiB 513MiB
+parted -s $DRIVE mkpart primary fat32 1MiB 1025MiB
 parted -s $DRIVE set 1 esp on
 parted -s $DRIVE mkpart primary ext4 4GiB 100%
+
+mount $DRIVE3 /mnt
+mount $DRIVE1 /mnt/boot --mkdir
 
 echo "Installing Arch Linux base system..."
 pacstrap -K /mnt base-devel base linux linux-firmware git wget grub vi vim sudo networkmanager
