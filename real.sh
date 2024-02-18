@@ -7,7 +7,7 @@ if [ $# -ne 1 ]; then
 fi
 
 # Assign the drive number from the argument
-DRIVE="/dev/sd$1"
+DRIVE="$1"
 
 echo "Resetting partitions on $DRIVE..."
 # Remove existing partitions on the drive
