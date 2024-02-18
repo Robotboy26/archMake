@@ -20,20 +20,9 @@ parted -s $DRIVE mkpart primary fat32 1MiB 513MiB
 parted -s $DRIVE set 1 esp on
 parted -s $DRIVE mkpart primary ext4 4GiB 100%
 
-# Format the boot partition with FAT32
-mkfs.fat -F32 ${DRIVE}1
-
-# Format the root partition with ext4
-mkfs.ext4 ${DRIVE}2
-
-# Mount the root partition to /mnt
-mount ${DRIVE}2 /mnt
-
 echo "Installing Arch Linux base system..."
-# Install the base system using pacstrap
-pacstrap /mnt base linux linux-firmware
+pacstrap -K /mnt base-devel base linux linux-firmware git wget grub vi vim sudo networkmanager
 
-# Generate an fstab file
 genfstab -U /mnt >> /mnt/etc/fstab
 
 echo "Chrooting into the new system..."
@@ -53,17 +42,7 @@ echo "LANG=en_US.UTF-8" > /etc/locale.conf
 echo "arch" > /etc/hostname
 echo "127.0.1.1 arch.localdomain arch" >> /etc/hosts
 
-# Install and configure the bootloader (Grub in this case)
-pacman -S grub efibootmgr dosfstools os-prober mtools
-mkdir /boot/EFI
-mount ${DRIVE}1 /boot/EFI
-grub-install --target=x86_64-efi --efi-directory=/boot/EFI --bootloader-id=ArchLinux
+passwd
+
+grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=arch
 grub-mkconfig -o /boot/grub/grub.cfg
-
-EOF
-
-echo "Unmounting partitions..."
-# Unmount the partitions
-umount -R /mnt
-
-echo "Installation complete! You can now reboot into your new Arch Linux system."
