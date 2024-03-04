@@ -20,10 +20,8 @@ pacstrap /mnt $(pacman -Sqg base | sed 's/^linux$/&-lts/') base-devel grub opens
 genfstab -p /mnt >> /mnt/etc/fstab
 
 cp ./chroot.sh /mnt
-cp ~/.ssh/authorized_keys /mnt
 arch-chroot /mnt ./chroot.sh "$DISK"
 rm /mnt/chroot.sh
-rm /mnt/authorized_keys
 
 umount -R /mnt
 systemctl reboot
