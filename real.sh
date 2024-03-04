@@ -11,12 +11,12 @@ DRIVE="$1"
 
 echo "Resetting partitions on $DRIVE..."
 # Remove existing partitions on the drive
-wipefs -a $DRIVE
+wipefs -a ${DRIVE}
 
 echo "Creating partitions on $DRIVE..."
 # Create a simple partition layout (one boot partition and one root partition)
 parted -s ${DRIVE} mklabel gpt
-parted -s ${DRIVE} mkpart primary fat32 1MiB 1025MiB
+parted -s ${DRIVE} mkpart primary fat32 1MiB 1025Mib
 parted -s ${DRIVE} set 1 esp on
 parted -s ${DRIVE} mkpart primary ext4 4GiB 100%
 
