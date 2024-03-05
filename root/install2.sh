@@ -27,6 +27,19 @@ mount "${part_root}" /mnt
 mkdir /mnt/boot
 mount "${part_boot}" /mnt/boot
 
+arch-chroot /mnt bootctl install
+
+cat <<EOF > /mnt/boot/loader/loader.conf
+default arch
+EOF
+
+cat <<EOF > /mnt/boot/loader/entries/arch.conf
+title    Arch Linux
+linux    /vmlinuz-linux
+initrd   /initramfs-linux.img
+options  root=PARTUUID=$(blkid -s PARTUUID -o value "$part_root") rw
+EOF
+
 # you can find your closest server from: https://www.archlinux.org/mirrorlist/all/
 echo 'Server = http://mirror.internode.on.net/pub/archlinux/$repo/os/$arch' > /etc/pacman.d/mirrorlist
 pacman -Syy
@@ -34,10 +47,3 @@ pacman -Syy
 # would recommend to use linux-lts kernel if you are running a server environment, otherwise just use "linux"
 pacstrap /mnt $(pacman -Sqg base | sed 's/^linux$/&-lts/') base-devel grub openssh sudo ntp wget vim
 genfstab -p /mnt >> /mnt/etc/fstab
-
-cp ./chroot.sh /mnt
-arch-chroot /mnt ./chroot.sh "$DISK"
-rm /mnt/chroot.sh
-
-umount -R /mnt
-systemctl reboot

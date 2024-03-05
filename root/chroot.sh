@@ -8,7 +8,7 @@ SWAP_SIZE=4G
 echo DISK="$1", HOST="$HOST", USERNAME="$USERNAME", HOME_DIR="$HOME_DIR"
 
 # grub as a bootloader
-grub-install --target=x86_64-efi--recheck "$1"
+grub-install --target=i386-pc --recheck "$1"
 
 # This makes the grub timeout 0, it's faster than 5 :)
 sudo sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/g' /etc/default/grub
