@@ -39,7 +39,7 @@
 ## ALSO LOOK AT THE install_packages FUNCTION TO SEE WHAT IS ACTUALLY INSTALLED
 
 pacman -Sy
-pacman -S dialog -noconfirm
+pacman -S dialog --noconfirm
 
 devicelist=$(lsblk -dplnx size -o name,size | grep -Ev "boot|rpmb|loop" | tac)
 DRIVE=$(dialog --stdout --menu "Select installation disk" 0 0 0 ${devicelist}) || exit
