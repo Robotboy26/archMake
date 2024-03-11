@@ -315,32 +315,11 @@ install_packages() {
         packages+=' netcfg ifplugd dialog wireless_tools wpa_actiond wpa_supplicant'
     fi
 
-    # Java stuff
-    packages+=' icedtea-web-java7 jdk7-openjdk jre7-openjdk'
-
-    # Libreoffice
-    packages+=' libreoffice-calc libreoffice-en-US libreoffice-gnome libreoffice-impress libreoffice-writer hunspell-en hyphen-en mythes-en'
-
-    # Misc programs
-    packages+=' mplayer pidgin vlc xscreensaver gparted dosfstools ntfsprogs'
-
-    # Xserver
-    packages+=' xorg-apps xorg-server xorg-xinit xterm'
-
-    # Slim login manager
-    packages+=' slim archlinux-themes-slim'
-
-    # Fonts
-    packages+=' ttf-dejavu ttf-liberation'
-
     # On Intel processors
     packages+=' intel-ucode'
 
     # For laptops
     packages+=' xf86-input-synaptics'
-
-    # Extra packages for tc4200 tablet
-    #packages+=' ipw2200-fw xf86-input-wacom'
 
     if [ "$VIDEO_DRIVER" = "i915" ]
     then
