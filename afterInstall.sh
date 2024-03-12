@@ -1,4 +1,4 @@
-sudo pacman -Syu
+sudo pacman -Syu --noconfirm
 export XDG_RUNTIME_DIR=/run/user/$(id -u)
 
 # Remove unneeded packager
@@ -25,7 +25,8 @@ yay -S gdb ninja gcc cmake meson libxcb xcb-proto xcb-util xcb-util-keysyms libx
 
 git clone --recursive https://github.com/hyprwm/Hyprland
 cd Hyprland
-make all && sudo make install
+make all -j$(nproc) CONFIG_XORG=OFF
+sudo make install
 
 # yay -S hyprland-git --noconfirm
 
