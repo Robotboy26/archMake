@@ -1,6 +1,4 @@
 sudo pacman -Syu --noconfirm
-export XDG_RUNTIME_DIR=/run/user/$(id -u)
-
 # Remove unneeded packager
 
 # Setup yay wrapper for pacman for getting wanted packages
@@ -10,8 +8,6 @@ cd yay
 makepkg -si --noconfirm
 cd ..
 sudo rm -r yay
-
-# Add wanted packages
 
 # Install Wayland for Hyprland
 yay -S wayland weston wlroots --noconfirm
@@ -27,11 +23,13 @@ git clone --recursive https://github.com/hyprwm/Hyprland
 cd Hyprland
 make all -j$(nproc) CONFIG_XORG=OFF
 sudo make install
-
-# yay -S hyprland-git --noconfirm
-
 echo "Hyprland install complete."
 
 # Hyprland stuff
+yay -S kitty-git --noconfirm
+yay -S firefox --noconfirm
+
+# Install wanted
+yay -S vim neovim --noconfirm
 
 # Other default coniguration
