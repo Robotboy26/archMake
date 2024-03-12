@@ -1,3 +1,3 @@
 # ArchMake
 
-I want to write it in zig. However I do not know zig and so I need to learn zig as well
+First you start with that 'arch.sh' script. this will just launch archinstall for right now. ect...
