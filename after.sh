@@ -26,15 +26,21 @@ echo "Hyprland install complete."
 
 # Hyprland stuff
 yay -S kitty-git --noconfirm
-yay -S firefox --noconfirm
 
-# Install wanted
+# setup zsh and ohmyzsh
+yay -S zsh --noconfirm
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+# Install editors
 yay -S vi vim neovim --noconfirm
+
+# Install webbrowsers
+yay -S brave-bin firefox --noconfirm
 
 # Remove unwanted packages
 
 # curl unwanted packages list
-unwantedPackages="inwantedPackages.txt"
+unwantedPackages="unwantedPackages.txt"
 # if [ -f "$unwantedPackages" ]; then
 # 	while IFS= read -r line; do
 # 	    yay -R "$line" --noconfirm
