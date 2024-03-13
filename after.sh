@@ -1,5 +1,4 @@
 sudo pacman -Syu --noconfirm
-# Remove unneeded packager
 
 # Setup yay wrapper for pacman for getting wanted packages
 sudo pacman -S --needed git base-devel --noconfirm
@@ -17,7 +16,7 @@ echo "Wayland install complete."
 yay -S hyprlang-git --noconfirm
 yay -S hyprcursor-git --noconfirm
 
-yay -S gdb ninja gcc cmake meson libxcb xcb-proto xcb-util xcb-util-keysyms libxfixes libx11 libxcomposite xorg-xinput libxrender pixman wayland-protocols cairo pango seatd libxkbcommon xcb-util-wm xorg-xwayland libinput libliftoff libdisplay-info cpio tomlplusplus --noconfirm
+yay -S gdb ninja gcc cmake meson libxcb xcb-proto xcb-util xcb-util-keysyms libxfixes libx11 libxcomposite xorg-xinput libxrender pixman wayland-protocols xorg-xwayland cairo pango seatd libxkbcommon xcb-util-wm libinput libliftoff libdisplay-info cpio tomlplusplus --noconfirm
 
 git clone --recursive https://github.com/hyprwm/Hyprland
 cd Hyprland
@@ -30,6 +29,16 @@ yay -S kitty-git --noconfirm
 yay -S firefox --noconfirm
 
 # Install wanted
-yay -S vim neovim --noconfirm
+yay -S vi vim neovim --noconfirm
+
+# Remove unwanted packages
+
+# curl unwanted packages list
+unwantedPackages="inwantedPackages.txt"
+# if [ -f "$unwantedPackages" ]; then
+# 	while IFS= read -r line; do
+# 	    yay -R "$line" --noconfirm
+# 	done < "$unwantedPackages"
+# fi
 
 # Other default coniguration
