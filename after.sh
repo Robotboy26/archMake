@@ -34,8 +34,8 @@ git clone https://github.com/Robotboy26/archMake.git
 mkdir -p ~/.config/kitty
 mkdir -p ~/.config/waybar
 
-cp ~/archMake/structure/config/kitty ~/.config/kitty
-cp ~/archMake/structure/config/waybar ~/.config/waybar
+cp ~/archMake/structure/config/kitty/* ~/.config/kitty
+cp ~/archMake/structure/config/waybar/* ~/.config/waybar
 
 # Cleanup
 cd ..
