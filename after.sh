@@ -33,9 +33,15 @@ git clone https://github.com/Robotboy26/archMake.git
 
 mkdir -p ~/.config/kitty
 mkdir -p ~/.config/waybar
+mkdir -p ~/.config/hypr
 
 cp ~/archMake/structure/config/kitty ~/.config/kitty
 cp ~/archMake/structure/config/waybar ~/.config/waybar
+cp ~/archMake/structure/config/hypr/* ~/.config/hypr
+
+# Setup wallpaper
+curl -o ~/wallpaper.png 'https://preview.redd.it/8xl10fn9mtf81.png?auto=webp&s=33c90219f68ee975d569cd432a30cca189ac942e'
+
 
 # Cleanup
 cd ..
