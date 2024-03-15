@@ -28,7 +28,8 @@ echo "Hyprland install complete."
 yay -S kitty-git waybar-git --noconfirm
 
 # Wget and copy over config files
-wget -o ~/structure https://raw.githubusercontent.com/Robotboy26/archMake/master/structure
+cd ~
+git clone https://github.com/Robotboy26/archMake.git
 
 mkdir -p ~/.config/kitty
 mkdir -p ~/.config/waybar
@@ -38,7 +39,7 @@ cp ~/structure/config/waybar ~/.config/waybar
 
 # Cleanup
 cd ..
-rm -r ~/structure
+rm -r ~/archMake
 
 # setup zsh and ohmyzsh
 yay -S zsh --noconfirm
