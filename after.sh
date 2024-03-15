@@ -39,7 +39,7 @@ cp ~/structure/config/waybar ~/.config/waybar
 
 # Cleanup
 cd ..
-rm -r ~/archMake
+sudo rm -r ~/archMake
 
 # setup zsh and ohmyzsh
 yay -S zsh --noconfirm
