@@ -51,7 +51,7 @@ yay -S vi vim neovim --noconfirm
 # Install webbrowsers
 yay -S brave-bin firefox --noconfirm
 
-yay -S neofetch # Because why not
+yay -S neofetch --noconfirm # Because why not
 
 # Install fonts
 yay -S  otf-font-awesome ttf-arimo-nerd noto-fonts --noconfirm # remove unwanted this is just temp
