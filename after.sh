@@ -25,17 +25,35 @@ sudo make install
 echo "Hyprland install complete."
 
 # Hyprland stuff
-yay -S kitty-git --noconfirm
+yay -S kitty-git waybar-git --noconfirm
+
+# Wget and copy over config files
+wget -o ~/structure https://raw.githubusercontent.com/Robotboy26/archMake/master/structure
+
+mkdir -p ~/.config/kitty
+mkdir -p ~/.config/waybar
+
+cp ~/structure/config/kitty ~/.config/kitty
+cp ~/structure/config/waybar ~/.config/waybar
+
+# Cleanup
+cd ..
+rm -r ~/structure
 
 # setup zsh and ohmyzsh
 yay -S zsh --noconfirm
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" # ohmyzsh
 
 # Install editors
 yay -S vi vim neovim --noconfirm
 
 # Install webbrowsers
 yay -S brave-bin firefox --noconfirm
+
+yay -S neofetch # Because why not
+
+# Install fonts
+yay -S  otf-font-awesome ttf-arimo-nerd noto-fonts --noconfirm # remove unwanted this is just temp
 
 # Remove unwanted packages
 
