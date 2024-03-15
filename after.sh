@@ -38,7 +38,7 @@ cp ~/archMake/structure/config/kitty/* ~/.config/kitty
 cp ~/archMake/structure/config/waybar/* ~/.config/waybar
 
 # Cleanup
-cd ..
+cd ~
 sudo rm -r ~/archMake
 
 # setup zsh and ohmyzsh
