@@ -35,6 +35,7 @@ mkdir -p ~/.config/kitty
 mkdir -p ~/.config/waybar
 mkdir -p ~/.config/hypr
 
+cp ~/archMake/structure/.zshrc ~/.zshrc
 cp ~/archMake/structure/config/kitty/* ~/.config/kitty/
 cp ~/archMake/structure/config/waybar/* ~/.config/waybar/
 cp ~/archMake/structure/config/hypr/* ~/.config/hypr/
@@ -53,6 +54,18 @@ sudo rm -r ~/archMake
 # Install editors
 yay -S vi vim neovim --noconfirm
 
+# Neovim setup
+cd ~
+git clone https://github.com/Robotboy26/neovimconf
+git clone --depth 1 https://github.com/wbthomason/packer.nvim\
+ ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+cp -r ~/.neovimconf/nvim ~/.config/
+nvim --headless ~/.config/nvim/lua/robot/packer.lua -c ":so" -c ":PackerSync" -c ":q"
+rm -r ~/neovimconf
+
+# Other terminal stuff
+yay -S tmux --noconfirm
+
 # Install webbrowsers
 yay -S brave-bin firefox --noconfirm
 
@@ -63,7 +76,6 @@ yay -S  otf-font-awesome ttf-arimo-nerd noto-fonts --noconfirm # remove unwanted
 
 # Remove unwanted packages
 
-# curl unwanted packages list
 unwantedPackages="unwantedPackages.txt"
 # if [ -f "$unwantedPackages" ]; then
 # 	while IFS= read -r line; do
@@ -71,6 +83,9 @@ unwantedPackages="unwantedPackages.txt"
 # 	done < "$unwantedPackages"
 # fi
 
-# setup zsh and ohmyzsh
+# Setup zsh and ohmyzsh
 yay -S zsh --noconfirm
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" # ohmyzsh
+
+# Update the system
+yay -Syu --noconfirm
