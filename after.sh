@@ -49,7 +49,8 @@ sudo systemctl enable iwd
 
 # Cleanup
 cd ~
-sudo rm -r ~/archMake
+mkdir -p ~/git
+mv ~/archMake ~/git/
 
 # Install editors
 yay -S vi vim neovim --noconfirm
