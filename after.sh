@@ -35,21 +35,20 @@ mkdir -p ~/.config/kitty
 mkdir -p ~/.config/waybar
 mkdir -p ~/.config/hypr
 
-cp ~/archMake/structure/config/kitty ~/.config/kitty
-cp ~/archMake/structure/config/waybar ~/.config/waybar
-cp ~/archMake/structure/config/hypr/* ~/.config/hypr
+cp ~/archMake/structure/config/kitty/* ~/.config/kitty/
+cp ~/archMake/structure/config/waybar/* ~/.config/waybar/
+cp ~/archMake/structure/config/hypr/* ~/.config/hypr/
 
 # Setup wallpaper
 curl -o ~/wallpaper.png 'https://preview.redd.it/8xl10fn9mtf81.png?auto=webp&s=33c90219f68ee975d569cd432a30cca189ac942e'
 
+# Setup network
+sudo systemctl start iwd
+sudo systemctl enable iwd
 
 # Cleanup
-cd ..
+cd ~
 sudo rm -r ~/archMake
-
-# setup zsh and ohmyzsh
-yay -S zsh --noconfirm
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" # ohmyzsh
 
 # Install editors
 yay -S vi vim neovim --noconfirm
@@ -72,4 +71,6 @@ unwantedPackages="unwantedPackages.txt"
 # 	done < "$unwantedPackages"
 # fi
 
-# Other default coniguration
+# setup zsh and ohmyzsh
+yay -S zsh --noconfirm
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" # ohmyzsh
