@@ -65,7 +65,7 @@ nvim --headless ~/.config/nvim/lua/robot/packer.lua -c ":so" -c ":PackerSync" -c
 rm -r ~/neovimconf
 
 # Other terminal stuff
-yay -S tmux --noconfirm
+yay -S tmux icat --noconfirm
 
 # Install webbrowsers
 yay -S brave-bin firefox --noconfirm
