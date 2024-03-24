@@ -1,3 +1,6 @@
+# Disable stupid pc beeper
+sudo rmmod pcspkr
+
 sudo pacman -Syu --noconfirm
 
 # Setup yay wrapper for pacman for getting wanted packages
