@@ -25,35 +25,66 @@ sudo make install
 echo "Hyprland install complete."
 
 # Hyprland stuff
-yay -S kitty-git waybar-git --noconfirm
+yay -S kitty-git waybar-git lf-git --noconfirm
+
+# Install the git version of some things
+yay -S hyprpaper-git --noconfirm
 
 # Wget and copy over config files
 cd ~
 git clone https://github.com/Robotboy26/archMake.git
 
-mkdir -p ~/.config/kitty
-mkdir -p ~/.config/waybar
+mkdir -p ~/Trash
+
 mkdir -p ~/.config/hypr
+mkdir -p ~/.config/kitty
+mkdir -p ~/.config/lf
+mkdir -p ~/.config/waybar
 
 cp ~/archMake/structure/.zshrc ~/.zshrc
-cp ~/archMake/structure/config/kitty/* ~/.config/kitty/
-cp ~/archMake/structure/config/waybar/* ~/.config/waybar/
 cp ~/archMake/structure/config/hypr/* ~/.config/hypr/
+cp ~/archMake/structure/config/kitty/* ~/.config/kitty/
+cp ~/archMake/structure/config/if/* ~/.config/lf/
+cp ~/archMake/structure/config/waybar/* ~/.config/waybar/
 
-# Setup wallpaper
-curl -o ~/wallpaper.png 'https://preview.redd.it/8xl10fn9mtf81.png?auto=webp&s=33c90219f68ee975d569cd432a30cca189ac942e'
 
-# Setup network
-sudo systemctl start iwd
-sudo systemctl enable iwd
+# Wallpapers
+cp -r archMake/structure/Picture ~/
 
 # Cleanup
 cd ~
 mkdir -p ~/git
 mv ~/archMake ~/git/
 
+# Get man's
+yay -S man-db tldr --noconfirm
+
+# Setup network
+yay -S ufw --noconfirm
+sudo ufw enable
+
+sudo systemctl start iwd
+sudo systemctl enable iwd
+
+# Power stuff
+yay -S tlp --noconfirm
+sudo tlp start
+sudo systemctl enable tlp
+
+# For better power saving
+echo '1500' > sudo '/proc/sys/vm/dirty_writeback_centisecs';
+
+# For viewing power stuff
+yay -S powertop --noconfirm
+
+# Laptop screen brightness
+yay -S brightnessctl --noconfirm
+
 # Install editors
 yay -S vi vim neovim --noconfirm
+
+# Better cd?
+yay -S zoxide --noconfirm
 
 # Neovim setup
 cd ~
@@ -90,3 +121,5 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 
 # Update the system
 yay -Syu --noconfirm
+
+# install nix

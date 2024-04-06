@@ -99,5 +99,7 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
-if [ "$TMUX" = "" ]; then tmux; fi
+#
+eval "$(zoxide init zsh)"
+alias fui="fzf"
+alias cd="z"
