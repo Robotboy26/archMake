@@ -5,6 +5,21 @@ if [ -f "$wallpaperFile" ]; then
     while IFS= read -r line; do
         filename="wallpaper$count.png"
         curl -o "$filename" "$line"
+        if [ ! -f $filename ]; then
+            echo "File not found: $filename"
+            exit 1
+        fi
+
+        extension="${filename##*.}"
+        new_filename="${filename%.*}.jpeg"
+
+        if [ $extension != "jpg" ] && [ $extension != "jpeg" ]; then
+            echo "Converting $filename to $new_filename..."
+            convert $filename $new_filename
+            echo "Conversion successful!"
+        else
+            echo "File is already in JPEG format."
+        fi
         ((count++))
     done < "$wallpaperFile"
 fi

@@ -57,6 +57,10 @@ cp ~/archMake/structure/config/kitty/* ~/.config/kitty/
 cp ~/archMake/structure/config/if/* ~/.config/lf/
 cp ~/archMake/structure/config/waybar/* ~/.config/waybar/
 
+# keyboard stuff
+cp ~/archMake/structure/config/usr/share/X11/xkb/symbols/hyper /usr/share/X11/xkb/symbols/
+localectl --no-convert set-x11-keymap hyper
+
 
 # Wallpapers
 cp -r archMake/structure/Picture ~/
