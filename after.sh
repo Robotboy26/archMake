@@ -1,10 +1,3 @@
-if [ "$(id -u)" -eq 0 ]; then
-  echo "Thank you for running with sudo"
-else
-  echo "Please run the script with sudo"
-  exit
-fi
-
 # Disable stupid pc beeper
 sudo rmmod pcspkr
 
