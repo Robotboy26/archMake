@@ -54,7 +54,6 @@ cp ~/archMake/structure/config/waybar/* ~/.config/waybar/
 cp ~/archMake/structure/config/usr/share/X11/xkb/symbols/hyper /usr/share/X11/xkb/symbols/
 localectl --no-convert set-x11-keymap hyper
 
-
 # Wallpapers
 cp -r archMake/structure/Picture ~/
 
@@ -73,10 +72,10 @@ sudo ufw enable
 sudo systemctl start iwd
 sudo systemctl enable iwd
 
+# Install bluetooth
+yay -S bluez bluez-utils --noconfirm
+
 # Power stuff
-yay -S tlp --noconfirm
-sudo tlp start
-sudo systemctl enable tlp
 
 # For better power saving
 echo '1500' > sudo '/proc/sys/vm/dirty_writeback_centisecs';
@@ -90,7 +89,7 @@ yay -S brightnessctl --noconfirm
 # Install editors
 yay -S vi vim neovim --noconfirm
 
-# Better cd?
+# Better cd :)
 yay -S zoxide --noconfirm
 
 # Neovim setup
@@ -108,19 +107,13 @@ yay -S tmux icat --noconfirm
 # Install webbrowsers
 yay -S brave-bin firefox --noconfirm
 
+# Install creative tools
+yay -S kdenlive krita --noconfirm
+
 yay -S neofetch --noconfirm # Because why not
 
 # Install fonts
 yay -S  otf-font-awesome ttf-arimo-nerd noto-fonts --noconfirm # remove unwanted this is just temp
-
-# Remove unwanted packages
-
-unwantedPackages="unwantedPackages.txt"
-# if [ -f "$unwantedPackages" ]; then
-# 	while IFS= read -r line; do
-# 	    yay -R "$line" --noconfirm
-# 	done < "$unwantedPackages"
-# fi
 
 # Setup zsh and ohmyzsh
 yay -S zsh --noconfirm
