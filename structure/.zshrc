@@ -82,11 +82,12 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+export EDITOR='nvim'
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='nvim'
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -103,3 +104,8 @@ source $ZSH/oh-my-zsh.sh
 eval "$(zoxide init zsh)"
 alias fui="fzf"
 alias cd="z"
+
+# disable autocolpleate on ssh terminals
+if [[ -n $SSH_TTY ]]; then
+  zstyle ':completion:*' completer _no_lists
+fi

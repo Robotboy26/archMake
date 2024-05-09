@@ -107,8 +107,11 @@ cmd zip ${{
     rm -rf $1
 }}
 
-map e $nvim "$f"
+map <c-c> quit
+map c quit
+
+map U set hidden!
 
 map J half-down
 map K half-up
-map D delete
+map D $mv "$f" "~/Trash"
