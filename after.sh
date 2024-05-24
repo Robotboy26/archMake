@@ -28,7 +28,7 @@ sudo make install
 echo "Hyprland install complete."
 
 # Hyprland stuff
-yay -S kitty-git waybar-git lf-git --noconfirm
+yay -S kitty-git lf-git --noconfirm
 
 # Install the git version of some things
 yay -S hyprpaper-git --noconfirm
