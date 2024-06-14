@@ -112,6 +112,11 @@ yay -S kdenlive krita --noconfirm
 
 yay -S neofetch --noconfirm # Because why not
 
+# 
+yay -S torctl --noconfirm
+sudo torctl start
+sudo torctl autostart
+
 # Install fonts
 yay -S  otf-font-awesome ttf-arimo-nerd noto-fonts --noconfirm # remove unwanted this is just temp
 
